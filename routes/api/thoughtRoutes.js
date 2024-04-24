@@ -91,6 +91,21 @@ router.post('/:thoughtId/reactions', async (req, res) => {
       console.log('Uh Oh, something went wrong');
       res.status(500).json({ message: 'something went wrong' });
   }
+});
+
+// Delete request for a thought reaction
+router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
+  try {
+      const result = await Thought.findOneAndUpdate(
+          { _id: req.params.thoughtId }, //where
+          { $pull: { reactions: { _id: req.params.reactionId } } },
+          { new: true }
+      )
+      res.status(200).json(result);
+  } catch (err) {
+      console.log('Uh Oh, something went wrong');
+      res.status(500).json({ message: 'something went wrong' });
+  }
 })
 
 

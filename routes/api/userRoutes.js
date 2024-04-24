@@ -19,15 +19,6 @@ router.get('/:id', async (req, res) => {
             // Joins the thoughts and friends tables
             .populate({ path: 'thoughts', select: '-__v', })
             .populate({ path: 'friends', select: '-__v', })
-        // .save()
-        // .execPopulate()
-        // .populate({path: 'thoughts'})
-        // this.populate({
-        //     path: "friends",
-        //     select: "-__v",
-        // })
-        // .select('-__v')
-        // .populate('thoughts')
         res.status(200).json(result);
     } catch (err) {
         console.log('Uh Oh, something went wrong');
@@ -38,12 +29,6 @@ router.get('/:id', async (req, res) => {
 // POST request to post a user
 router.post('/', async (req, res) => {
     const result = await User.create(req.body);
-    // const result = new User({
-    // username: req.body.username,
-    // email: req.body.email,
-    // thoughts: req.body.thoughts,
-    // friends: req.body.friends
-    // });
     result.save();
     if (result) {
         res.status(201).json(result);
